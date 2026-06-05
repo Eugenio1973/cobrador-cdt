@@ -11,65 +11,6 @@ const DENOMINACIONES = [20000, 10000, 2000, 1000, 500, 200, 100, 50, 20, 10];
 const CSS = `
 *{box-sizing:border-box}html,body,#root{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}body{overscroll-behavior:none}body{background:#111827}.shell{min-height:100vh;background:linear-gradient(180deg,#020617 0,#111827 280px,#f3f4f6 280px,#f3f4f6 100%);color:#111827}.shell.dark{background:linear-gradient(180deg,#020617 0,#0f172a 285px,#111827 285px,#111827 100%);color:#f9fafb}.top{position:sticky;top:0;z-index:20;background:#020617;color:white;padding:18px 16px 14px;border-bottom:4px solid #b91c1c;box-shadow:0 12px 35px rgba(0,0,0,.35)}.brand{display:flex;justify-content:space-between;gap:12px;align-items:center}.kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#9ca3af;font-weight:800}.title{font-size:28px;font-weight:950;letter-spacing:-.5px;line-height:1.05}.status{text-align:right;font-size:12px;color:#d1d5db}.pill{display:inline-block;margin-top:4px;background:#b91c1c;color:white;border-radius:999px;padding:4px 10px;font-weight:900}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}.tab{border:0;border-radius:15px;padding:12px 8px;background:#1f2937;color:#e5e7eb;font-weight:950}.tab.active{background:#dc2626;color:white;box-shadow:0 8px 20px rgba(220,38,38,.35)}.content{max-width:1080px;margin:0 auto;padding:16px}.stack{display:grid;gap:16px}.card{background:rgba(255,255,255,.98);border:1px solid rgba(15,23,42,.08);border-radius:24px;padding:17px;box-shadow:0 14px 38px rgba(15,23,42,.12)}.dark .card{background:#1f2937;border-color:#374151;box-shadow:0 14px 38px rgba(0,0,0,.25);color:#f9fafb}.card.danger{background:#fef2f2;border-color:#fecaca}.dark .card.danger{background:#3f1515;border-color:#7f1d1d}.card-title{margin:0 0 10px;font-size:22px;font-weight:950}.muted{color:#6b7280;font-size:14px}.dark .muted{color:#9ca3af}.field{display:grid;gap:6px}.label{font-size:13px;font-weight:900;color:#374151}.dark .label{color:#d1d5db}.input,.select,textarea{width:100%;border:1px solid #d1d5db;background:white;color:#111827;border-radius:17px;padding:14px;font-size:16px;outline:none}.dark .input,.dark .select,.dark textarea{background:#111827;color:#f9fafb;border-color:#4b5563}.input:focus,.select:focus,textarea:focus{border-color:#dc2626;box-shadow:0 0 0 4px rgba(220,38,38,.12)}.btn{border:0;border-radius:17px;padding:13px 16px;min-height:48px;font-weight:950;color:white;background:#111827;box-shadow:0 8px 20px rgba(17,24,39,.22)}.btn:disabled{opacity:.45;filter:grayscale(1);box-shadow:none}.btn.red{background:#dc2626}.btn.green{background:#047857}.btn.blue{background:#2563eb}.btn.gray{background:#4b5563}.btn-row{display:flex;flex-wrap:wrap;gap:10px}.grid{display:grid;gap:13px}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.metric{background:white;border:1px solid #e5e7eb;border-radius:20px;padding:16px;box-shadow:0 8px 22px rgba(15,23,42,.08)}.dark .metric{background:#1f2937;border-color:#374151}.metric-label{font-size:13px;color:#6b7280;font-weight:800}.dark .metric-label{color:#9ca3af}.metric-value{font-size:29px;font-weight:950;color:#047857;margin-top:3px}.search-list{margin-top:12px;max-height:230px;overflow:auto;border:1px solid #e5e7eb;border-radius:20px;background:white}.dark .search-list{background:#111827;border-color:#374151}.list-btn{display:block;width:100%;border:0;border-bottom:1px solid #e5e7eb;background:white;padding:11px 14px;text-align:left;color:#111827}.dark .list-btn{background:#111827;color:#f9fafb;border-color:#374151}.list-btn.selected{background:#ecfdf5;font-weight:900}.dark .list-btn.selected{background:#064e3b}.list-main{font-size:16px;font-weight:900}.list-sub{margin-top:4px;color:#6b7280;font-size:12px}.dark .list-sub{color:#9ca3af}.empty{border-radius:18px;background:#f9fafb;padding:18px;text-align:center;color:#6b7280}.dark .empty{background:#111827;color:#9ca3af}.ok{background:#ecfdf5;color:#047857;font-weight:950}.cuota{display:flex;align-items:center;gap:12px;background:white;border:1px solid #e5e7eb;border-radius:20px;padding:14px;margin-bottom:9px;cursor:pointer}.dark .cuota{background:#111827;border-color:#374151}.cuota.checked{background:#ecfdf5;border-color:#16a34a}.dark .cuota.checked{background:#064e3b}.cuota input{width:24px;height:24px;accent-color:#16a34a}.cuota-body{flex:1;min-width:0}.cuota-periodo{font-weight:950}.cuota-concepto{font-size:13px;color:#6b7280;margin-top:2px}.dark .cuota-concepto{color:#9ca3af}.cuota-importe{font-weight:950;color:#047857;white-space:nowrap}.total-box{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(135deg,#ecfdf5,#fff);border:1px solid #bbf7d0;border-radius:22px;padding:16px}.dark .total-box{background:linear-gradient(135deg,#064e3b,#111827);border-color:#047857}.total-label{font-size:13px;color:#065f46;font-weight:900}.dark .total-label{color:#86efac}.total-value{font-size:31px;font-weight:950;color:#047857}.socio-destacado{margin-top:12px;border-radius:22px;padding:18px;background:linear-gradient(135deg,#111827,#1f2937);color:white;border:1px solid #374151}.dark .socio-destacado{background:linear-gradient(135deg,#7f1d1d,#111827);border-color:#b91c1c}.socio-label{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:#9ca3af;font-weight:900}.socio-nombre{margin-top:4px;font-size:26px;line-height:1.05;font-weight:950}.socio-meta{margin-top:8px;font-size:13px;color:#d1d5db}.socio-deuda{margin-top:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}.socio-deuda span{font-size:13px;color:#d1d5db}.socio-deuda b{font-size:28px;color:#86efac}.table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:20px;background:white}.dark .table-wrap{background:#111827;border-color:#374151}table{width:100%;border-collapse:collapse;font-size:14px}th{background:#f3f4f6;color:#374151;text-align:left;padding:12px;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.dark th{background:#0f172a;color:#d1d5db}td{padding:12px;border-top:1px solid #e5e7eb}.dark td{border-color:#374151}.notice{border-radius:18px;padding:14px;background:#fffbeb;color:#92400e;font-size:13px;font-weight:800}.dark .notice{background:#422006;color:#facc15}.logo{height:84px;border-radius:16px;border:1px solid #e5e7eb;background:white;padding:8px;object-fit:contain}.file-label{display:block;border:2px dashed #d1d5db;border-radius:18px;padding:18px;text-align:center;background:#f9fafb;color:#374151;font-weight:900}.dark .file-label{background:#111827;color:#d1d5db;border-color:#4b5563}.file-label input{display:none}.arqueo-row{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;align-items:center;border-bottom:1px solid #e5e7eb;padding:8px 0}.dark .arqueo-row{border-color:#374151}@media(min-width:768px){.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}}@media(max-width:540px){.content{padding:12px}.card{padding:14px;border-radius:20px}.title{font-size:24px}.tabs{gap:6px}.tab{font-size:11px;padding:11px 4px}.total-value{font-size:26px}.brand{align-items:flex-start}.status{font-size:11px}}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}.money-input{text-align:right;font-weight:900;font-variant-numeric:tabular-nums}
-
-/* Ajustes específicos para celular */
-@media(max-width:720px){
-  html,body,#root{width:100%;min-height:100%;overflow-x:hidden}
-  body{background:#020617;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-  .shell,.shell.dark{background:#0f172a;color:#f9fafb;min-height:100dvh}
-  .top{padding:10px 10px 9px;border-bottom-width:3px;position:sticky;top:0}
-  .brand{gap:8px;align-items:flex-start}
-  .kicker{font-size:9px;letter-spacing:1px}
-  .title{font-size:21px;line-height:1.05}
-  .status{font-size:10px;min-width:72px}
-  .pill{padding:3px 8px;font-size:11px}
-  .tabs{display:grid;grid-template-columns:repeat(5,minmax(58px,1fr));gap:5px;margin-top:10px;overflow-x:auto;padding-bottom:2px}
-  .tab{border-radius:12px;min-height:42px;padding:9px 4px;font-size:11px;line-height:1.05;white-space:nowrap}
-  .content{max-width:100%;padding:10px 8px 78px;margin:0}
-  .stack{gap:10px}
-  .card{border-radius:18px;padding:12px;box-shadow:none}
-  .card-title{font-size:18px;text-align:center;margin-bottom:10px}
-  .grid,.two,.three,.four{grid-template-columns:1fr !important;gap:10px}
-  .metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .metric{border-radius:16px;padding:10px;text-align:center}
-  .metric-label{font-size:11px}
-  .metric-value{font-size:22px}
-  .input,.select,textarea{min-height:50px;border-radius:15px;padding:13px 12px;font-size:16px;line-height:1.2}
-  .btn{width:100%;min-height:50px;border-radius:15px;padding:13px 12px;font-size:14px}
-  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .btn-row .btn:only-child{grid-column:1/-1}
-  .file-label{padding:16px 12px;border-radius:16px}
-  .search-list{max-height:40vh;border-radius:16px}
-  .list-btn{padding:11px 12px}
-  .list-main{font-size:15px;line-height:1.15}
-  .list-sub{font-size:11px}
-  .socio-destacado{border-radius:18px;padding:14px;text-align:center}
-  .socio-nombre{font-size:21px;line-height:1.1}
-  .socio-deuda{align-items:center}
-  .socio-deuda b{font-size:24px}
-  .cuota{border-radius:17px;padding:12px 10px;gap:10px;align-items:center}
-  .cuota input{width:28px;height:28px;flex:0 0 28px}
-  .cuota-periodo{font-size:16px}
-  .cuota-concepto{font-size:12px;line-height:1.2}
-  .cuota-importe{font-size:15px}
-  .total-box{border-radius:18px;padding:13px}
-  .total-value{font-size:24px}
-  .table-wrap{border-radius:16px;overflow:auto;-webkit-overflow-scrolling:touch}
-  table{font-size:12px;min-width:520px}
-  th,td{padding:9px 8px}
-  .arqueo-row{grid-template-columns:1fr 82px 94px;gap:6px;font-size:13px}
-  .money-input{text-align:right;font-size:16px}
-  .notice{font-size:12px;border-radius:15px;padding:12px;line-height:1.35;text-align:center}
-}
-@media(max-width:390px){
-  .tab{font-size:10px;min-height:40px}
-  .title{font-size:19px}
-  .metrics{grid-template-columns:1fr 1fr}
-  .btn-row{grid-template-columns:1fr}
-  .arqueo-row{grid-template-columns:1fr;align-items:stretch}
-  .arqueo-row .input{width:100%}
-}
-
 `;
 
 function load(key, fallback) { try { const saved = localStorage.getItem(key); return saved ? JSON.parse(saved) : fallback; } catch { return fallback; } }
@@ -216,15 +157,6 @@ function abrirPDFCierre({ config, arqueo, comisionPorcentaje, comisionImporte, n
 }
 
 export default function App() {
-  useEffect(() => {
-    let meta = document.querySelector('meta[name="viewport"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "viewport");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover");
-  }, []);
   const today = new Date().toISOString().slice(0, 10);
   const [padron, setPadron] = useState(() => load(PADRON_KEY, { socios: [], cuotas: [] }));
   const [cobranzas, setCobranzas] = useState(() => load(COBRANZAS_KEY, []));
