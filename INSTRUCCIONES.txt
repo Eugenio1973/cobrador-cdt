@@ -1,30 +1,13 @@
-COBRADOR CDT PWA v1.0.2 — CORRECCIÓN DE ACTUALIZACIÓN
+Cobrador CDT v1.0.3
 
-OBJETIVO
-- Eliminar el loop de actualización observado en v1.0.1.
-- Mantener el funcionamiento offline y todos los datos locales.
-- La aplicación NO se recarga automáticamente al detectar una versión nueva.
+Corrección del aviso permanente de actualización.
+- La primera instalación del Service Worker no se interpreta como actualización.
+- La franja naranja sólo aparece si existe realmente un worker nuevo en espera.
+- No hay recarga automática al detectar una versión.
+- Al pulsar Actualizar aplicación, se activa el worker y se recarga una sola vez.
+- No se borran padrón, cobranzas, tickets, arqueos, configuración ni secuencia RCS.
 
-CAMBIOS
-- Versión visible: 1.0.2.
-- Menú: Cobrar | Tickets | Arqueo | Backup.
-- Service Worker: cdt-cobrador-app-v1.0.2.
-- Una versión nueva queda en espera hasta que el usuario pulse "Actualizar aplicación".
-- Se eliminó la recarga automática por controllerchange.
-- El botón de actualización permite una sola recarga controlada mediante sessionStorage.
-- Al recuperar Internet, enfocar la app o volver a verla, se consulta si hay una versión nueva.
-- La actualización no borra padrón, cobranzas, tickets, arqueos, configuración ni secuencia RCS.
-
-PARA PUBLICAR
-1. Reemplazar los archivos del proyecto por los de este ZIP.
-2. En VS Code:
-   git add .
-   git commit -m "Corregir actualización PWA v1.0.2"
-   git push
-3. Esperar el despliegue automático de Vercel desde main.
-
-IMPORTANTE PARA SALIR DE v1.0.1
-- Cuando la v1.0.1 detecte la v1.0.2 puede mostrar "Nueva versión disponible".
-- Pulsar "Actualizar aplicación" una sola vez.
-- La app debe recargar una vez y mostrar Versión 1.0.2.
-- A partir de v1.0.2 no debe entrar en loop.
+Publicar:
+git add .
+git commit -m "Corregir aviso actualización PWA v1.0.3"
+git push

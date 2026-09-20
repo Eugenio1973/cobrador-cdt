@@ -6,7 +6,7 @@ const CONFIG_KEY = "cdt_cobrador_config_v1";
 const ARQUEOS_KEY = "cdt_cobrador_arqueos_v1";
 const TICKETS_KEY = "cdt_cobrador_tickets_v1";
 const RECIBO_SEQ_KEY = "cdt_cobrador_recibo_seq_v1";
-const APP_VERSION = "1.0.2";
+const APP_VERSION = "1.0.3";
 
 const CUENTAS_NO_CAJA = ["Banco Santa Fe", "Mutual Regional", "Mercado Pago"];
 const DENOMINACIONES = [20000, 10000, 2000, 1000, 500, 200, 100, 50, 20, 10];
@@ -234,83 +234,89 @@ export default function App() {
   useEffect(() => save(RECIBO_SEQ_KEY, reciboSeq), [reciboSeq]);
   useEffect(() => save(CONFIG_KEY, config), [config]);
 
-  // PWA: se instala una sola vez y se actualiza desde Vercel cuando vuelve Internet.
+  // PWA: actualización manual y controlada.
   useEffect(() => {
     const onOnline = () => setOnline(true);
     const onOffline = () => setOnline(false);
     window.addEventListener("online", onOnline);
     window.addEventListener("offline", onOffline);
 
-    // Vincula el manifest sin obligar a modificar index.html.
     if (!document.querySelector('link[rel="manifest"]')) {
       const link = document.createElement("link");
       link.rel = "manifest";
-      link.href = "/manifest.webmanifest?v=1.0.2";
+      link.href = "/manifest.webmanifest?v=1.0.3";
       document.head.appendChild(link);
     }
 
+    let regActual = null;
+    let activo = true;
+
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js?v=1.0.2", { updateViaCache: "none" }).then((reg) => {
+      navigator.serviceWorker.register("/sw.js?v=1.0.3", { updateViaCache: "none" }).then((reg) => {
+        if (!activo) return;
+        regActual = reg;
         setSwRegistration(reg);
 
-        if (reg.waiting) setUpdateAvailable(true);
+        // Primera instalación NO es una actualización.
+        setUpdateAvailable(Boolean(reg.waiting && navigator.serviceWorker.controller));
 
         reg.addEventListener("updatefound", () => {
           const worker = reg.installing;
           if (!worker) return;
           worker.addEventListener("statechange", () => {
-            if (worker.state === "installed" && navigator.serviceWorker.controller) {
+            if (
+              activo &&
+              worker.state === "installed" &&
+              navigator.serviceWorker.controller &&
+              reg.waiting
+            ) {
               setUpdateAvailable(true);
             }
           });
         });
 
-        // Cada vez que recupera conexión, consulta si Vercel tiene una versión nueva.
-        const check = () => reg.update().catch(() => {});
-        window.addEventListener("online", check);
-        window.addEventListener("focus", check);
-        const onVisible = () => { if (document.visibilityState === "visible") check(); };
-        document.addEventListener("visibilitychange", onVisible);
-        const updateTimer = window.setInterval(check, 60 * 60 * 1000);
-        check();
-
-        // Limpieza de estos listeners se realiza al descargar la página.
-        window.addEventListener("pagehide", () => {
-          window.removeEventListener("focus", check);
-          document.removeEventListener("visibilitychange", onVisible);
-          window.clearInterval(updateTimer);
-        }, { once: true });
+        reg.update().catch(() => {});
       }).catch((err) => console.warn("No se pudo registrar PWA:", err));
     }
 
+    const check = () => {
+      if (regActual && navigator.onLine) regActual.update().catch(() => {});
+    };
+    const onVisible = () => {
+      if (document.visibilityState === "visible") check();
+    };
+    window.addEventListener("focus", check);
+    document.addEventListener("visibilitychange", onVisible);
+
     return () => {
+      activo = false;
       window.removeEventListener("online", onOnline);
       window.removeEventListener("offline", onOffline);
+      window.removeEventListener("focus", check);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);
 
   function actualizarAplicacion() {
-    if (!swRegistration) return;
-
-    if (swRegistration.waiting) {
-      // La nueva versión ya está lista. Se activa sólo por acción del usuario.
-      // El navegador tomará el nuevo Service Worker sin forzar recargas repetidas.
-      swRegistration.waiting.postMessage({ type: "SKIP_WAITING" });
-      setUpdateAvailable(false);
-
-      // Una única recarga diferida, marcada en sessionStorage, para cargar la nueva interfaz.
-      // La marca evita cualquier posibilidad de bucle.
-      const key = "cdt_pwa_reload_v1.0.2";
-      if (!sessionStorage.getItem(key)) {
-        sessionStorage.setItem(key, "1");
-        window.setTimeout(() => window.location.reload(), 700);
-      }
+    const waiting = swRegistration?.waiting;
+    if (!waiting) {
+      swRegistration?.update().catch(() => {});
       return;
     }
 
-    // Si todavía no está esperando, sólo busca una actualización.
-    // updatefound/statechange mostrará el botón cuando quede lista.
-    swRegistration.update().catch(() => {});
+    // El usuario decide cuándo activar la versión nueva.
+    // La recarga ocurre una sola vez, cuando el nuevo SW toma el control.
+    let recargado = false;
+    const onControllerChange = () => {
+      if (recargado) return;
+      recargado = true;
+      navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
+      setUpdateAvailable(false);
+      window.location.reload();
+    };
+
+    navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
+    waiting.postMessage({ type: "SKIP_WAITING" });
   }
   useEffect(() => { const disponibles = cuentasPorMedio(medio); if (!disponibles.includes(cuenta)) setCuenta(disponibles[0]); }, [medio]);
   useEffect(() => { const maxHistorico = [...cobranzas, ...tickets].reduce((m, x) => Math.max(m, numeroDeRecibo(x.numeroRecibo)), 0); if (maxHistorico > reciboSeq) setReciboSeq(maxHistorico); }, []);
