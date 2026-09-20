@@ -1,0 +1,27 @@
+COBRADOR CDT PWA v1.0.1 — ACTUALIZACIÓN
+
+CAMBIOS
+- Versión visible de la app: 1.0.1.
+- Menú conserva "Tickets".
+- Service Worker versionado como cdt-cobrador-app-v1.0.1.
+- Al activar la nueva versión elimina cachés anteriores de la app.
+- Navegación y recursos usan red primero cuando hay conexión y caché como respaldo offline.
+- El registro del Service Worker usa updateViaCache: none.
+- Busca actualizaciones al iniciar, recuperar Internet, volver a enfocar la app y periódicamente.
+- La actualización no borra padrón, cobranzas, tickets, arqueos, configuración ni secuencia RCS.
+
+PARA ACTUALIZAR EL PROYECTO
+1. Reemplazar src/App.jsx por el incluido en este ZIP.
+2. Reemplazar public/sw.js, public/manifest.webmanifest y public/cdt-icon.svg.
+3. Probar opcionalmente con: npm run dev
+4. Publicar:
+   git add .
+   git commit -m "Actualizar Cobrador CDT a v1.0.1"
+   git push
+5. Vercel debe desplegar automáticamente desde main.
+
+COMPROBACIÓN
+- Abrir el dominio publicado con Internet.
+- Verificar que el encabezado muestre Versión 1.0.1.
+- Verificar menú: Cobrar | Tickets | Arqueo | Backup.
+- En una PWA instalada, cuando exista una versión nueva aparecerá el aviso de actualización.

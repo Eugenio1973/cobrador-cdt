@@ -6,6 +6,7 @@ const CONFIG_KEY = "cdt_cobrador_config_v1";
 const ARQUEOS_KEY = "cdt_cobrador_arqueos_v1";
 const TICKETS_KEY = "cdt_cobrador_tickets_v1";
 const RECIBO_SEQ_KEY = "cdt_cobrador_recibo_seq_v1";
+const APP_VERSION = "1.0.1";
 
 const CUENTAS_NO_CAJA = ["Banco Santa Fe", "Mutual Regional", "Mercado Pago"];
 const DENOMINACIONES = [20000, 10000, 2000, 1000, 500, 200, 100, 50, 20, 10];
@@ -13,6 +14,13 @@ const DENOMINACIONES = [20000, 10000, 2000, 1000, 500, 200, 100, 50, 20, 10];
 const CSS = `
 *{box-sizing:border-box}html,body,#root{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}body{overscroll-behavior:none}body{background:#111827}.shell{min-height:100vh;background:linear-gradient(180deg,#020617 0,#111827 280px,#f3f4f6 280px,#f3f4f6 100%);color:#111827}.shell.dark{background:linear-gradient(180deg,#020617 0,#0f172a 285px,#111827 285px,#111827 100%);color:#f9fafb}.top{position:sticky;top:0;z-index:20;background:#020617;color:white;padding:18px 16px 14px;border-bottom:4px solid #b91c1c;box-shadow:0 12px 35px rgba(0,0,0,.35)}.brand{display:flex;justify-content:space-between;gap:12px;align-items:center}.kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#9ca3af;font-weight:800}.title{font-size:28px;font-weight:950;letter-spacing:-.5px;line-height:1.05}.status{text-align:right;font-size:12px;color:#d1d5db}.pill{display:inline-block;margin-top:4px;background:#b91c1c;color:white;border-radius:999px;padding:4px 10px;font-weight:900}.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px}.tab{border:0;border-radius:15px;padding:12px 8px;background:#1f2937;color:#e5e7eb;font-weight:950}.tab.active{background:#dc2626;color:white;box-shadow:0 8px 20px rgba(220,38,38,.35)}.content{max-width:1080px;margin:0 auto;padding:16px}.stack{display:grid;gap:16px}.card{background:rgba(255,255,255,.98);border:1px solid rgba(15,23,42,.08);border-radius:24px;padding:17px;box-shadow:0 14px 38px rgba(15,23,42,.12)}.dark .card{background:#1f2937;border-color:#374151;box-shadow:0 14px 38px rgba(0,0,0,.25);color:#f9fafb}.card.danger{background:#fef2f2;border-color:#fecaca}.dark .card.danger{background:#3f1515;border-color:#7f1d1d}.card-title{margin:0 0 10px;font-size:22px;font-weight:950}.muted{color:#6b7280;font-size:14px}.dark .muted{color:#9ca3af}.field{display:grid;gap:6px}.label{font-size:13px;font-weight:900;color:#374151}.dark .label{color:#d1d5db}.input,.select,textarea{width:100%;border:1px solid #d1d5db;background:white;color:#111827;border-radius:17px;padding:14px;font-size:16px;outline:none}.dark .input,.dark .select,.dark textarea{background:#111827;color:#f9fafb;border-color:#4b5563}.input:focus,.select:focus,textarea:focus{border-color:#dc2626;box-shadow:0 0 0 4px rgba(220,38,38,.12)}.btn{border:0;border-radius:17px;padding:13px 16px;min-height:48px;font-weight:950;color:white;background:#111827;box-shadow:0 8px 20px rgba(17,24,39,.22)}.btn:disabled{opacity:.45;filter:grayscale(1);box-shadow:none}.btn.red{background:#dc2626}.btn.green{background:#047857}.btn.blue{background:#2563eb}.btn.gray{background:#4b5563}.btn-row{display:flex;flex-wrap:wrap;gap:10px}.grid{display:grid;gap:13px}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.metric{background:white;border:1px solid #e5e7eb;border-radius:20px;padding:16px;box-shadow:0 8px 22px rgba(15,23,42,.08)}.dark .metric{background:#1f2937;border-color:#374151}.metric-label{font-size:13px;color:#6b7280;font-weight:800}.dark .metric-label{color:#9ca3af}.metric-value{font-size:29px;font-weight:950;color:#047857;margin-top:3px}.search-list{margin-top:12px;max-height:230px;overflow:auto;border:1px solid #e5e7eb;border-radius:20px;background:white}.dark .search-list{background:#111827;border-color:#374151}.list-btn{display:block;width:100%;border:0;border-bottom:1px solid #e5e7eb;background:white;padding:11px 14px;text-align:left;color:#111827}.dark .list-btn{background:#111827;color:#f9fafb;border-color:#374151}.list-btn.selected{background:#ecfdf5;font-weight:900}.dark .list-btn.selected{background:#064e3b}.list-main{font-size:16px;font-weight:900}.list-sub{margin-top:4px;color:#6b7280;font-size:12px}.dark .list-sub{color:#9ca3af}.empty{border-radius:18px;background:#f9fafb;padding:18px;text-align:center;color:#6b7280}.dark .empty{background:#111827;color:#9ca3af}.ok{background:#ecfdf5;color:#047857;font-weight:950}.cuota{display:flex;align-items:center;gap:12px;background:white;border:1px solid #e5e7eb;border-radius:20px;padding:14px;margin-bottom:9px;cursor:pointer}.dark .cuota{background:#111827;border-color:#374151}.cuota.checked{background:#ecfdf5;border-color:#16a34a}.dark .cuota.checked{background:#064e3b}.cuota input{width:24px;height:24px;accent-color:#16a34a}.cuota-body{flex:1;min-width:0}.cuota-periodo{font-weight:950}.cuota-concepto{font-size:13px;color:#6b7280;margin-top:2px}.dark .cuota-concepto{color:#9ca3af}.cuota-importe{font-weight:950;color:#047857;white-space:nowrap}.total-box{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(135deg,#ecfdf5,#fff);border:1px solid #bbf7d0;border-radius:22px;padding:16px}.dark .total-box{background:linear-gradient(135deg,#064e3b,#111827);border-color:#047857}.total-label{font-size:13px;color:#065f46;font-weight:900}.dark .total-label{color:#86efac}.total-value{font-size:31px;font-weight:950;color:#047857}.socio-destacado{margin-top:12px;border-radius:22px;padding:18px;background:linear-gradient(135deg,#111827,#1f2937);color:white;border:1px solid #374151}.dark .socio-destacado{background:linear-gradient(135deg,#7f1d1d,#111827);border-color:#b91c1c}.socio-label{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:#9ca3af;font-weight:900}.socio-nombre{margin-top:4px;font-size:26px;line-height:1.05;font-weight:950}.socio-meta{margin-top:8px;font-size:13px;color:#d1d5db}.socio-deuda{margin-top:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}.socio-deuda span{font-size:13px;color:#d1d5db}.socio-deuda b{font-size:28px;color:#86efac}.table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:20px;background:white}.dark .table-wrap{background:#111827;border-color:#374151}table{width:100%;border-collapse:collapse;font-size:14px}th{background:#f3f4f6;color:#374151;text-align:left;padding:12px;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.dark th{background:#0f172a;color:#d1d5db}td{padding:12px;border-top:1px solid #e5e7eb}.dark td{border-color:#374151}.notice{border-radius:18px;padding:14px;background:#fffbeb;color:#92400e;font-size:13px;font-weight:800}.dark .notice{background:#422006;color:#facc15}.logo{height:84px;border-radius:16px;border:1px solid #e5e7eb;background:white;padding:8px;object-fit:contain}.file-label{display:block;border:2px dashed #d1d5db;border-radius:18px;padding:18px;text-align:center;background:#f9fafb;color:#374151;font-weight:900}.dark .file-label{background:#111827;color:#d1d5db;border-color:#4b5563}.file-label input{display:none}.arqueo-row{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;align-items:center;border-bottom:1px solid #e5e7eb;padding:8px 0}.dark .arqueo-row{border-color:#374151}@media(min-width:768px){.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}}@media(max-width:540px){.content{padding:12px}.card{padding:14px;border-radius:20px}.title{font-size:24px}.tabs{gap:6px}.tab{font-size:11px;padding:11px 4px}.total-value{font-size:26px}.brand{align-items:flex-start}.status{font-size:11px}}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}.money-input{text-align:right;font-weight:900;font-variant-numeric:tabular-nums}
+
+.update-banner{position:sticky;top:0;z-index:50;background:#f59e0b;color:#111827;padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:900;box-shadow:0 5px 18px rgba(0,0,0,.2)}
+.update-banner button{border:0;border-radius:12px;background:#111827;color:white;padding:9px 13px;font-weight:950}
+.online-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#22c55e}
+.online-dot.offline{background:#f59e0b}
+.app-version{font-size:11px;color:#9ca3af;margin-top:4px}
+
 /* Corrección scroll celular */
 html,body,#root{
   height:auto!important;
@@ -215,6 +223,9 @@ export default function App() {
   const [corrCuotaId, setCorrCuotaId] = useState("");
   const [corrConcepto, setCorrConcepto] = useState("");
   const [corrImporte, setCorrImporte] = useState("");
+  const [online, setOnline] = useState(() => navigator.onLine);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [swRegistration, setSwRegistration] = useState(null);
 
   useEffect(() => save(PADRON_KEY, padron), [padron]);
   useEffect(() => save(COBRANZAS_KEY, cobranzas), [cobranzas]);
@@ -222,6 +233,78 @@ export default function App() {
   useEffect(() => save(TICKETS_KEY, tickets), [tickets]);
   useEffect(() => save(RECIBO_SEQ_KEY, reciboSeq), [reciboSeq]);
   useEffect(() => save(CONFIG_KEY, config), [config]);
+
+  // PWA: se instala una sola vez y se actualiza desde Vercel cuando vuelve Internet.
+  useEffect(() => {
+    const onOnline = () => setOnline(true);
+    const onOffline = () => setOnline(false);
+    window.addEventListener("online", onOnline);
+    window.addEventListener("offline", onOffline);
+
+    // Vincula el manifest sin obligar a modificar index.html.
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const link = document.createElement("link");
+      link.rel = "manifest";
+      link.href = "/manifest.webmanifest?v=1.0.1";
+      document.head.appendChild(link);
+    }
+
+    let refreshing = false;
+    const onControllerChange = () => {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    };
+    navigator.serviceWorker?.addEventListener("controllerchange", onControllerChange);
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js?v=1.0.1", { updateViaCache: "none" }).then((reg) => {
+        setSwRegistration(reg);
+
+        if (reg.waiting) setUpdateAvailable(true);
+
+        reg.addEventListener("updatefound", () => {
+          const worker = reg.installing;
+          if (!worker) return;
+          worker.addEventListener("statechange", () => {
+            if (worker.state === "installed" && navigator.serviceWorker.controller) {
+              setUpdateAvailable(true);
+            }
+          });
+        });
+
+        // Cada vez que recupera conexión, consulta si Vercel tiene una versión nueva.
+        const check = () => reg.update().catch(() => {});
+        window.addEventListener("online", check);
+        window.addEventListener("focus", check);
+        const onVisible = () => { if (document.visibilityState === "visible") check(); };
+        document.addEventListener("visibilitychange", onVisible);
+        const updateTimer = window.setInterval(check, 60 * 60 * 1000);
+        check();
+
+        // Limpieza de estos listeners se realiza al descargar la página.
+        window.addEventListener("pagehide", () => {
+          window.removeEventListener("focus", check);
+          document.removeEventListener("visibilitychange", onVisible);
+          window.clearInterval(updateTimer);
+        }, { once: true });
+      }).catch((err) => console.warn("No se pudo registrar PWA:", err));
+    }
+
+    return () => {
+      window.removeEventListener("online", onOnline);
+      window.removeEventListener("offline", onOffline);
+      navigator.serviceWorker?.removeEventListener("controllerchange", onControllerChange);
+    };
+  }, []);
+
+  function actualizarAplicacion() {
+    if (swRegistration?.waiting) {
+      swRegistration.waiting.postMessage({ type: "SKIP_WAITING" });
+    } else {
+      swRegistration?.update().finally(() => window.location.reload());
+    }
+  }
   useEffect(() => { const disponibles = cuentasPorMedio(medio); if (!disponibles.includes(cuenta)) setCuenta(disponibles[0]); }, [medio]);
   useEffect(() => { const maxHistorico = [...cobranzas, ...tickets].reduce((m, x) => Math.max(m, numeroDeRecibo(x.numeroRecibo)), 0); if (maxHistorico > reciboSeq) setReciboSeq(maxHistorico); }, []);
 
@@ -389,7 +472,9 @@ export default function App() {
     }
   }
 
-  return <div className={`shell ${dark ? "dark" : ""}`}><style>{CSS}</style><header className="top"><div className="brand"><div><div className="kicker">Club Deportivo Tacural</div><div className="title">Cobrador CDT</div></div><div className="status"><div>{config.cobrador || "Sin cobrador"}</div><span className="pill">{cobranzas.length} cobro/s · {money(totalCobrado)}</span></div></div><nav className="tabs">{[["cobrar","Cobrar"],["tickets","Tickets"],["arqueo","Arqueo"],["backup","Backup"],...(adminOk ? [["padron","Padrón"],["config","Config"]] : [])].map(([k,l])=><button key={k} onClick={()=>setTab(k)} className={`tab ${tab===k?"active":""}`}>{l}</button>)}</nav></header><main className="content stack">
+  return <div className={`shell ${dark ? "dark" : ""}`}><style>{CSS}</style>
+    {updateAvailable && <div className="update-banner"><span>Nueva versión disponible</span><button onClick={actualizarAplicacion}>Actualizar aplicación</button></div>}
+    <header className="top"><div className="brand"><div><div className="kicker">Club Deportivo Tacural</div><div className="title">Cobrador CDT</div></div><div className="status"><div><span className={`online-dot ${online ? "" : "offline"}`}></span>{online ? "En línea" : "Sin conexión"}</div><div>{config.cobrador || "Sin cobrador"}</div><span className="pill">{cobranzas.length} cobro/s · {money(totalCobrado)}</span><div className="app-version">Versión {APP_VERSION}</div></div></div><nav className="tabs">{[["cobrar","Cobrar"],["tickets","Tickets"],["arqueo","Arqueo"],["backup","Backup"],...(adminOk ? [["padron","Padrón"],["config","Config"]] : [])].map(([k,l])=><button key={k} onClick={()=>setTab(k)} className={`tab ${tab===k?"active":""}`}>{l}</button>)}</nav></header><main className="content stack">
     {tab === "cobrar" && <><Card><Field label="Buscar socio"><Input value={busqueda} onChange={(e)=>setBusqueda(e.target.value)} placeholder="Nombre, DNI o N° socio" autoFocus /></Field><div className="search-list">{sociosFiltrados.length===0 ? <div className="empty">Sin socios. Importá un padrón.</div> : sociosFiltrados.map((s)=><button key={s.id} onClick={()=>{setSocioId(String(s.id));setSeleccion([])}} className={`list-btn ${String(socioId)===String(s.id)?"selected":""}`}><div className="list-main">{s.numero} - {s.nombre}</div><div className="list-sub">DNI {s.dni || "-"} | Tel. {s.telefono || "-"}</div></button>)}</div></Card><Card>{socio ? <div className="socio-destacado"><div className="socio-label">Socio seleccionado</div><div className="socio-nombre">{socio.numero || ""} - {socio.nombre || ""}</div><div className="socio-meta">DNI {socio.dni || "-"} | Tel. {socio.telefono || "-"}</div><div className="socio-deuda"><span>Total a cobrar</span><b>{money(total)}</b></div></div> : <div className="total-box"><div><div className="total-label">Total a cobrar</div><div className="muted">Seleccioná un socio</div></div><div className="total-value">{money(total)}</div></div>}<h2 className="card-title" style={{marginTop:14}}>Cuotas pendientes</h2>{!socio ? <div className="empty">Seleccioná un socio para ver cuotas.</div> : cuotasPendientes.length===0 ? <div className="empty ok">Sin deuda pendiente.</div> : <div><div className="btn-row" style={{marginBottom:10}}><Button variant="gray" onClick={()=>setSeleccion(cuotasPendientes.map(c=>String(c.id)))}>Todas</Button><Button variant="gray" onClick={()=>setSeleccion([])}>Limpiar</Button></div>{cuotasPendientes.map((c)=><label key={c.id} className={`cuota ${seleccion.includes(String(c.id))?"checked":""}`}><input type="checkbox" checked={seleccion.includes(String(c.id))} onChange={()=>toggleCuota(c.id)} /><div className="cuota-body"><div className="cuota-periodo">{c.periodo}</div><div className="cuota-concepto">{c.concepto || "Cuota social"}</div></div><div className="cuota-importe">{money(c.importe)}</div></label>)}</div>}</Card><Card key={`cobrar-form-${formResetKey}`}><h2 className="card-title" style={{color:'#047857'}}>Cobrar</h2><div className="grid four"><Field label="Fecha"><Input type="date" value={fechaCobro} onChange={(e)=>setFechaCobro(e.target.value)} /></Field><Field label="Medio"><Select value={medio} onChange={(e)=>cambiarMedioCobro(e.target.value)}><option>Efectivo</option><option>Transferencia</option><option>Mercado Pago</option><option>Débito</option></Select></Field><Field label="Cuenta financiera"><Select value={cuenta} onChange={(e)=>setCuenta(e.target.value)}>{cuentasPorMedio(medio).map((c)=><option key={c}>{c}</option>)}</Select></Field><div style={{display:'flex',alignItems:'end'}}><Button variant="green" disabled={!total} onClick={cobrar}>Cobrar e imprimir</Button></div></div><div className="notice" style={{marginTop:12}}>Regla activa: efectivo sólo se registra en Caja. Transferencia, Mercado Pago y Débito sólo permiten cuentas financieras bancarias o digitales.</div></Card></>}
     {tab === "tickets" && <><Card><h2 className="card-title">Tickets emitidos</h2><Field label="Buscar ticket"><Input value={ticketQuery} onChange={(e)=>setTicketQuery(e.target.value)} placeholder="N° RCS, socio o fecha" /></Field><p className="muted">La reimpresión conserva el mismo número y los mismos datos del comprobante original. No genera una nueva cobranza.</p></Card><Card><div className="table-wrap"><table><thead><tr><th>Recibo</th><th>Fecha</th><th>Socio</th><th>Total</th><th>Acción</th></tr></thead><tbody>{ticketsFiltrados.length===0 ? <tr><td colSpan="5" className="empty">Sin tickets emitidos.</td></tr> : ticketsFiltrados.map((t)=><tr key={t.idOperacion || t.numeroRecibo}><td><b>{t.numeroRecibo}</b></td><td>{fechaAR(t.fecha)}</td><td>{t.socioNombre}</td><td><b>{money(t.importe)}</b></td><td><Button variant="blue" onClick={()=>reimprimirTicket(t)}>Reimprimir</Button></td></tr>)}</tbody></table></div></Card></>}
     {tab === "arqueo" && <><Card><h2 className="card-title">Arqueo / cierre del cobrador</h2><div className="grid two"><Field label="Desde"><Input type="date" value={arqueoDesde} onChange={(e)=>setArqueoDesde(e.target.value)} /></Field><Field label="Hasta"><Input type="date" value={arqueoHasta} onChange={(e)=>setArqueoHasta(e.target.value)} /></Field></div></Card><div className="metrics"><div className="metric"><div className="metric-label">Cobros período</div><div className="metric-value">{cobranzasPeriodo.length}</div></div><div className="metric"><div className="metric-label">Total sistema</div><div className="metric-value">{money(totalSistemaPeriodo)}</div></div><div className="metric"><div className="metric-label">Total declarado</div><div className="metric-value">{money(totalDeclarado)}</div></div><div className="metric"><div className="metric-label">Diferencia</div><div className="metric-value" style={{color:diferenciaArqueo===0?'#047857':'#dc2626'}}>{money(diferenciaArqueo)}</div></div></div><Card><h2 className="card-title">Totales según sistema</h2><div className="table-wrap"><table><tbody><tr><td>Efectivo</td><td><b>{money(efectivoSistema)}</b></td></tr><tr><td>Transferencia</td><td><b>{money(transferSistema)}</b></td></tr><tr><td>Mercado Pago</td><td><b>{money(mpSistema)}</b></td></tr><tr><td>Débito</td><td><b>{money(debitoSistema)}</b></td></tr><tr><td><b>Total</b></td><td><b>{money(totalSistemaPeriodo)}</b></td></tr></tbody></table></div></Card><Card><h2 className="card-title">Conteo de efectivo</h2>{DENOMINACIONES.map((d)=><div key={d} className="arqueo-row"><div><b>{money(d)}</b></div><Input type="number" value={billetes[d]} onChange={(e)=>setBilletes({...billetes,[d]:e.target.value})} placeholder="Cant." /><div><b>{money(d*Number(billetes[d]||0))}</b></div></div>)}<div className="total-box" style={{marginTop:12}}><div><div className="total-label">Efectivo contado</div></div><div className="total-value">{money(efectivoContado)}</div></div></Card><Card><h2 className="card-title">Declaración no efectivo</h2><div className="grid three"><Field label="Transferencia"><Input type="text" inputMode="numeric" className="money-input" placeholder="$ 0" value={formatMoneyInput(noEfectivoDeclarado.Transferencia)} onChange={(e)=>setNoEfectivoDeclarado({...noEfectivoDeclarado,Transferencia:parseMoneyInput(e.target.value)})} /></Field><Field label="Mercado Pago"><Input type="text" inputMode="numeric" className="money-input" placeholder="$ 0" value={formatMoneyInput(noEfectivoDeclarado['Mercado Pago'])} onChange={(e)=>setNoEfectivoDeclarado({...noEfectivoDeclarado,'Mercado Pago':parseMoneyInput(e.target.value)})} /></Field><Field label="Débito"><Input type="text" inputMode="numeric" className="money-input" placeholder="$ 0" value={formatMoneyInput(noEfectivoDeclarado.Débito)} onChange={(e)=>setNoEfectivoDeclarado({...noEfectivoDeclarado,Débito:parseMoneyInput(e.target.value)})} /></Field></div><div className="notice" style={{marginTop:12}}>Esto sirve para que el cobrador declare lo que informa como transferido/cobrado digitalmente.</div></Card><Card><h2 className="card-title">Comisión del cobrador</h2><div className="metrics"><div className="metric"><div className="metric-label">Porcentaje</div><div className="metric-value">{comisionPorcentaje}%</div></div><div className="metric"><div className="metric-label">Importe comisión</div><div className="metric-value">{money(comisionImporte)}</div></div><div className="metric"><div className="metric-label">Neto a rendir en efectivo</div><div className="metric-value">{money(netoARendir)}</div></div></div><div className="notice" style={{marginTop:12}}>El cierre mensual toma el mes correspondiente a la fecha Desde y guarda un solo cierre por mes y por cobrador.</div></Card><Card><Field label="Observaciones"><textarea rows="3" value={obsArqueo} onChange={(e)=>setObsArqueo(e.target.value)} placeholder="Ej: diferencia por vuelto, transferencia pendiente de verificar, etc." /></Field><div className="btn-row" style={{marginTop:12}}><Button variant="red" onClick={cerrarMensual}>Cierre mensual + PDF</Button></div></Card></>}
