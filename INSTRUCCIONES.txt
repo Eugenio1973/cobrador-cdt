@@ -1,27 +1,30 @@
-COBRADOR CDT PWA v1.0.1 — ACTUALIZACIÓN
+COBRADOR CDT PWA v1.0.2 — CORRECCIÓN DE ACTUALIZACIÓN
+
+OBJETIVO
+- Eliminar el loop de actualización observado en v1.0.1.
+- Mantener el funcionamiento offline y todos los datos locales.
+- La aplicación NO se recarga automáticamente al detectar una versión nueva.
 
 CAMBIOS
-- Versión visible de la app: 1.0.1.
-- Menú conserva "Tickets".
-- Service Worker versionado como cdt-cobrador-app-v1.0.1.
-- Al activar la nueva versión elimina cachés anteriores de la app.
-- Navegación y recursos usan red primero cuando hay conexión y caché como respaldo offline.
-- El registro del Service Worker usa updateViaCache: none.
-- Busca actualizaciones al iniciar, recuperar Internet, volver a enfocar la app y periódicamente.
+- Versión visible: 1.0.2.
+- Menú: Cobrar | Tickets | Arqueo | Backup.
+- Service Worker: cdt-cobrador-app-v1.0.2.
+- Una versión nueva queda en espera hasta que el usuario pulse "Actualizar aplicación".
+- Se eliminó la recarga automática por controllerchange.
+- El botón de actualización permite una sola recarga controlada mediante sessionStorage.
+- Al recuperar Internet, enfocar la app o volver a verla, se consulta si hay una versión nueva.
 - La actualización no borra padrón, cobranzas, tickets, arqueos, configuración ni secuencia RCS.
 
-PARA ACTUALIZAR EL PROYECTO
-1. Reemplazar src/App.jsx por el incluido en este ZIP.
-2. Reemplazar public/sw.js, public/manifest.webmanifest y public/cdt-icon.svg.
-3. Probar opcionalmente con: npm run dev
-4. Publicar:
+PARA PUBLICAR
+1. Reemplazar los archivos del proyecto por los de este ZIP.
+2. En VS Code:
    git add .
-   git commit -m "Actualizar Cobrador CDT a v1.0.1"
+   git commit -m "Corregir actualización PWA v1.0.2"
    git push
-5. Vercel debe desplegar automáticamente desde main.
+3. Esperar el despliegue automático de Vercel desde main.
 
-COMPROBACIÓN
-- Abrir el dominio publicado con Internet.
-- Verificar que el encabezado muestre Versión 1.0.1.
-- Verificar menú: Cobrar | Tickets | Arqueo | Backup.
-- En una PWA instalada, cuando exista una versión nueva aparecerá el aviso de actualización.
+IMPORTANTE PARA SALIR DE v1.0.1
+- Cuando la v1.0.1 detecte la v1.0.2 puede mostrar "Nueva versión disponible".
+- Pulsar "Actualizar aplicación" una sola vez.
+- La app debe recargar una vez y mostrar Versión 1.0.2.
+- A partir de v1.0.2 no debe entrar en loop.

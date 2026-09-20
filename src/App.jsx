@@ -6,7 +6,7 @@ const CONFIG_KEY = "cdt_cobrador_config_v1";
 const ARQUEOS_KEY = "cdt_cobrador_arqueos_v1";
 const TICKETS_KEY = "cdt_cobrador_tickets_v1";
 const RECIBO_SEQ_KEY = "cdt_cobrador_recibo_seq_v1";
-const APP_VERSION = "1.0.1";
+const APP_VERSION = "1.0.2";
 
 const CUENTAS_NO_CAJA = ["Banco Santa Fe", "Mutual Regional", "Mercado Pago"];
 const DENOMINACIONES = [20000, 10000, 2000, 1000, 500, 200, 100, 50, 20, 10];
@@ -245,20 +245,12 @@ export default function App() {
     if (!document.querySelector('link[rel="manifest"]')) {
       const link = document.createElement("link");
       link.rel = "manifest";
-      link.href = "/manifest.webmanifest?v=1.0.1";
+      link.href = "/manifest.webmanifest?v=1.0.2";
       document.head.appendChild(link);
     }
 
-    let refreshing = false;
-    const onControllerChange = () => {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    };
-    navigator.serviceWorker?.addEventListener("controllerchange", onControllerChange);
-
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js?v=1.0.1", { updateViaCache: "none" }).then((reg) => {
+      navigator.serviceWorker.register("/sw.js?v=1.0.2", { updateViaCache: "none" }).then((reg) => {
         setSwRegistration(reg);
 
         if (reg.waiting) setUpdateAvailable(true);
@@ -294,16 +286,31 @@ export default function App() {
     return () => {
       window.removeEventListener("online", onOnline);
       window.removeEventListener("offline", onOffline);
-      navigator.serviceWorker?.removeEventListener("controllerchange", onControllerChange);
     };
   }, []);
 
   function actualizarAplicacion() {
-    if (swRegistration?.waiting) {
+    if (!swRegistration) return;
+
+    if (swRegistration.waiting) {
+      // La nueva versión ya está lista. Se activa sólo por acción del usuario.
+      // El navegador tomará el nuevo Service Worker sin forzar recargas repetidas.
       swRegistration.waiting.postMessage({ type: "SKIP_WAITING" });
-    } else {
-      swRegistration?.update().finally(() => window.location.reload());
+      setUpdateAvailable(false);
+
+      // Una única recarga diferida, marcada en sessionStorage, para cargar la nueva interfaz.
+      // La marca evita cualquier posibilidad de bucle.
+      const key = "cdt_pwa_reload_v1.0.2";
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, "1");
+        window.setTimeout(() => window.location.reload(), 700);
+      }
+      return;
     }
+
+    // Si todavía no está esperando, sólo busca una actualización.
+    // updatefound/statechange mostrará el botón cuando quede lista.
+    swRegistration.update().catch(() => {});
   }
   useEffect(() => { const disponibles = cuentasPorMedio(medio); if (!disponibles.includes(cuenta)) setCuenta(disponibles[0]); }, [medio]);
   useEffect(() => { const maxHistorico = [...cobranzas, ...tickets].reduce((m, x) => Math.max(m, numeroDeRecibo(x.numeroRecibo)), 0); if (maxHistorico > reciboSeq) setReciboSeq(maxHistorico); }, []);
