@@ -1,18 +1,15 @@
 {
-  "name": "Cobrador CDT",
-  "short_name": "Cobrador CDT",
-  "description": "Aplicación móvil de cobranzas del Club Deportivo Tacural",
+  "name": "CDT – Cuotas Societarias",
+  "short_name": "Cuotas CDT",
+  "description": "Aplicación móvil de cobranzas de cuotas societarias del Club Deportivo Tacural",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#020617",
   "icons": [
-    {
-      "src": "/cdt-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
+    {"src":"/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"/icon-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ]
 }

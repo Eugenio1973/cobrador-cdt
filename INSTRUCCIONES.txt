@@ -1,21 +1,22 @@
-Cobrador CDT v1.0.4
+CDT – Cuotas Societarias v1.0.5
 
-Corrección definitiva del aviso de actualización PWA.
-- La franja naranja ya NO depende de serviceWorker.waiting.
-- La versión publicada se consulta en /version.json sin caché.
-- Si APP_VERSION y version.json coinciden, no aparece ningún aviso.
-- Si hay una versión realmente distinta publicada, aparece “Nueva versión disponible”.
-- La actualización sólo se ejecuta cuando el usuario pulsa “Actualizar aplicación”.
-- No hay recargas automáticas ni loops de actualización.
-- Sin Internet la aplicación sigue funcionando normalmente.
-- No se borran padrón, cobranzas, tickets, arqueos, configuración ni secuencia RCS.
+CAMBIOS DE ESTA VERSION
+- Se conserva íntegramente la lógica de la v1.0.4.
+- Nuevo ícono de instalación: escudo del Club Deportivo Tacural.
+- Nombre de la PWA instalada: CDT – Cuotas Societarias.
+- Nombre corto: Cuotas CDT.
+- El encabezado interno continúa como Cobrador CDT.
+- Versión actualizada a 1.0.5.
 
-IMPORTANTE AL PUBLICAR ESTA VERSIÓN
-La versión anterior (1.0.3) puede mostrar todavía su franja naranja hasta que cargue por primera vez la 1.0.4.
-Después de publicar, abrir la app con Internet y pulsar una vez “Actualizar aplicación” si la 1.0.3 todavía muestra el aviso.
-Al quedar visible “Versión 1.0.4”, la franja debe desaparecer porque version.json también informa 1.0.4.
+PUBLICACION
+1. Reemplazar en el proyecto los archivos de este ZIP.
+2. En VS Code ejecutar:
+   git add .
+   git commit -m "Actualizar Cobrador CDT a v1.0.5"
+   git push
+3. Esperar el despliegue automático de Vercel.
+4. Abrir la app con Internet y aplicar la actualización si aparece el aviso.
 
-Publicar:
-git add .
-git commit -m "Actualizar Cobrador CDT a v1.0.4"
-git push
+IMPORTANTE SOBRE EL ICONO
+Android puede conservar el ícono anterior si la PWA ya estaba instalada.
+Si luego de actualizar sigue mostrando el ícono viejo, puede ser necesario quitar SOLO el acceso/PWA de la pantalla de inicio y volver a instalarla desde el navegador. Esto no debe confundirse con borrar los datos del navegador.

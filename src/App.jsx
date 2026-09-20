@@ -6,7 +6,7 @@ const CONFIG_KEY = "cdt_cobrador_config_v1";
 const ARQUEOS_KEY = "cdt_cobrador_arqueos_v1";
 const TICKETS_KEY = "cdt_cobrador_tickets_v1";
 const RECIBO_SEQ_KEY = "cdt_cobrador_recibo_seq_v1";
-const APP_VERSION = "1.0.4";
+const APP_VERSION = "1.0.5";
 
 const CUENTAS_NO_CAJA = ["Banco Santa Fe", "Mutual Regional", "Mercado Pago"];
 const DENOMINACIONES = [20000, 10000, 2000, 1000, 500, 200, 100, 50, 20, 10];
@@ -261,12 +261,12 @@ export default function App() {
     if (!document.querySelector('link[rel="manifest"]')) {
       const link = document.createElement("link");
       link.rel = "manifest";
-      link.href = "/manifest.webmanifest?v=1.0.4";
+      link.href = "/manifest.webmanifest?v=1.0.5";
       document.head.appendChild(link);
     }
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js?v=1.0.4", { updateViaCache: "none" })
+      navigator.serviceWorker.register("/sw.js?v=1.0.5", { updateViaCache: "none" })
         .then((reg) => reg.update().catch(() => {}))
         .catch((err) => console.warn("No se pudo registrar PWA:", err));
     }

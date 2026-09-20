@@ -1,5 +1,5 @@
-const CACHE_NAME = "cdt-cobrador-app-v1.0.4";
-const APP_SHELL = ["/", "/manifest.webmanifest?v=1.0.4", "/cdt-icon.svg"];
+const CACHE_NAME = "cdt-cobrador-app-v1.0.5";
+const APP_SHELL = ["/", "/manifest.webmanifest?v=1.0.5", "/icon-192.png", "/icon-512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
