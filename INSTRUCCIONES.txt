@@ -1,13 +1,21 @@
-Cobrador CDT v1.0.3
+Cobrador CDT v1.0.4
 
-Corrección del aviso permanente de actualización.
-- La primera instalación del Service Worker no se interpreta como actualización.
-- La franja naranja sólo aparece si existe realmente un worker nuevo en espera.
-- No hay recarga automática al detectar una versión.
-- Al pulsar Actualizar aplicación, se activa el worker y se recarga una sola vez.
+Corrección definitiva del aviso de actualización PWA.
+- La franja naranja ya NO depende de serviceWorker.waiting.
+- La versión publicada se consulta en /version.json sin caché.
+- Si APP_VERSION y version.json coinciden, no aparece ningún aviso.
+- Si hay una versión realmente distinta publicada, aparece “Nueva versión disponible”.
+- La actualización sólo se ejecuta cuando el usuario pulsa “Actualizar aplicación”.
+- No hay recargas automáticas ni loops de actualización.
+- Sin Internet la aplicación sigue funcionando normalmente.
 - No se borran padrón, cobranzas, tickets, arqueos, configuración ni secuencia RCS.
+
+IMPORTANTE AL PUBLICAR ESTA VERSIÓN
+La versión anterior (1.0.3) puede mostrar todavía su franja naranja hasta que cargue por primera vez la 1.0.4.
+Después de publicar, abrir la app con Internet y pulsar una vez “Actualizar aplicación” si la 1.0.3 todavía muestra el aviso.
+Al quedar visible “Versión 1.0.4”, la franja debe desaparecer porque version.json también informa 1.0.4.
 
 Publicar:
 git add .
-git commit -m "Corregir aviso actualización PWA v1.0.3"
+git commit -m "Actualizar Cobrador CDT a v1.0.4"
 git push

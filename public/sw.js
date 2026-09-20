@@ -1,8 +1,12 @@
-const CACHE_NAME = "cdt-cobrador-app-v1.0.3";
-const APP_SHELL = ["/", "/manifest.webmanifest?v=1.0.3", "/cdt-icon.svg"];
+const CACHE_NAME = "cdt-cobrador-app-v1.0.4";
+const APP_SHELL = ["/", "/manifest.webmanifest?v=1.0.4", "/cdt-icon.svg"];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (event) => {
@@ -17,15 +21,17 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-self.addEventListener("message", (event) => {
-  if (event.data?.type === "SKIP_WAITING") self.skipWaiting();
-});
-
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+
+  // version.json nunca se sirve desde caché: es la fuente de verdad de la versión publicada.
+  if (url.pathname === "/version.json") {
+    event.respondWith(fetch(req, { cache: "no-store" }));
+    return;
+  }
 
   if (req.mode === "navigate") {
     event.respondWith(
