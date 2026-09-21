@@ -1,22 +1,27 @@
-CDT – Cuotas Societarias v1.0.5
+CDT – Cuotas Societarias v1.0.6
 
 CAMBIOS DE ESTA VERSION
-- Se conserva íntegramente la lógica de la v1.0.4.
-- Nuevo ícono de instalación: escudo del Club Deportivo Tacural.
-- Nombre de la PWA instalada: CDT – Cuotas Societarias.
-- Nombre corto: Cuotas CDT.
-- El encabezado interno continúa como Cobrador CDT.
-- Versión actualizada a 1.0.5.
+- Se mantienen separadas dos exportaciones con objetivos distintos.
+- Exportación para CDT Gestión: conserva el formato CDT_COBRANZAS_MOVILES_V2 para enviar cobranzas y arqueos al sistema de Gestión Contable.
+- Copia de seguridad completa: nuevo formato CDT_COBRADOR_BACKUP_COMPLETO_V1.
+- El backup completo guarda padrón, cuotas, cobranzas, arqueos, entradas/recibos, numeración RCS y configuración.
+- La restauración completa reemplaza el estado de la app por el contenido del backup, previa confirmación.
+- Compatibilidad hacia atrás: desde Restaurar también se puede seleccionar una exportación CDT_COBRANZAS_MOVILES_V2 anterior para recuperar cobranzas y arqueos sin modificar padrón ni configuración.
+- Al recuperar cobranzas se recalcula la secuencia RCS para evitar repetir números.
+- En la interfaz se usa “Entradas” en lugar de “Tickets”.
+- Versión actualizada a 1.0.6.
 
 PUBLICACION
 1. Reemplazar en el proyecto los archivos de este ZIP.
 2. En VS Code ejecutar:
    git add .
-   git commit -m "Actualizar Cobrador CDT a v1.0.5"
+   git commit -m "Actualizar Cobrador CDT a v1.0.6"
    git push
 3. Esperar el despliegue automático de Vercel.
 4. Abrir la app con Internet y aplicar la actualización si aparece el aviso.
 
-IMPORTANTE SOBRE EL ICONO
-Android puede conservar el ícono anterior si la PWA ya estaba instalada.
-Si luego de actualizar sigue mostrando el ícono viejo, puede ser necesario quitar SOLO el acceso/PWA de la pantalla de inicio y volver a instalarla desde el navegador. Esto no debe confundirse con borrar los datos del navegador.
+RECUPERACION DE LAS COBRANZAS ACTUALES
+- Ir a Backup > Copia de seguridad completa de la app.
+- Elegir “Restaurar backup completo o recuperar exportación anterior”.
+- Seleccionar el archivo CDT_cobranzas_moviles_2026-09-20...json conservado como respaldo.
+- La app reconocerá automáticamente el formato anterior y recuperará esas cobranzas sin reemplazar el padrón actual.
